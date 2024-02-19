@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:absensi_elektronik/view/profil.dart';
 import 'package:absensi_elektronik/view/homepage.dart';
 import 'package:absensi_elektronik/view/mainpage.dart';
+import 'package:absensi_elektronik/view/splash.dart';
 import 'package:absensi_elektronik/viewmodels/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,9 +27,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/login',
+        initialRoute: '/',
         routes: {
-          
+          '/': (context) => Splash(),
           '/location': (context) => Profil(),
           '/navbar': (context) => MainPage(),
           '/login': (context) => LoginView(),

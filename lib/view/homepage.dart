@@ -121,170 +121,251 @@ class _HomepageState extends State<Homepage> {
         ),
       ),
       body: Center(
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
-              //kontainer 1
-              child: Container(
-                width: 1000,
-                height: 200,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3),
+        child: SingleChildScrollView(
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+        
+                //kontainer 1 titik koordinat
+                child: Container(
+                  width: 1000,
+                  height: 230,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/maps.jpg',
+                          width: 50,
+                          height: 50,
+                        ),
+                        Text(
+                          'Titik Koordinat Lokasi',
+                          style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.04,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+        
+                        //latlong lokasi kantor
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.05,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Latitude",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "Longitude",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(viewModel.latitudeLokasi),
+                              Text(viewModel.langitudeLokasi),
+                            ],
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            getLokasi();
+                            // Aksi yang ingin dilakukan saat tombol ditekan
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Color.fromARGB(255, 66, 164,
+                                244), // Warna latar belakang tombol
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: Text(
+                            'Klik untuk mendapatkan titik koordinat',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+        
+                        //atur nanti output latlongnya lokasi kita
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Latitude",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "Longitude",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(_latUser.toString()),
+                              Text(_longUser.toString()),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20),
+              ),
+              SizedBox(height: 30.0), // Spacer antara kedua container
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+        
+                //kontainer 2
+                child: Container(
+                  width: 1000,
+                  // height: 230,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
                   child: Column(
                     children: [
+                      Image.asset(
+                        'assets/person.png',
+                        height: 80,
+                        width: 80,
+                      ),
+        
                       Text(
-                        'Titik Koordinat Lokasi',
+                        '${viewModel.namaPegawai},${viewModel.gelarblkg}',
                         style: TextStyle(
-                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 20),
-
-                      //latlong lokasi kantor
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Latitude"),
-                            Text("Longitude"),
-                          ],
+                      Text(
+                        "NIP: ${viewModel.nip}",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(viewModel.latitudeLokasi),
-                            Text(viewModel.langitudeLokasi),
-                          ],
-                        ),
+                      Padding(padding: EdgeInsets.only(bottom: 10)),
+                      Text(
+                        "Sebelum klik tombol masuk, silahkan upload swafoto terlebih dahulu ketika sudah berada di sekitaran lokasi pengambilan absen",
+                        textAlign: TextAlign.center,
                       ),
+        
+                      // Ganti ElevatedButton dengan RaisedButton untuk memberikan warna yang sama seperti pada file picker
                       ElevatedButton(
-                        onPressed: () {
-                          getLokasi();
-                          // Aksi yang ingin dilakukan saat tombol ditekan
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(
-                              255, 66, 164, 244), // Warna latar belakang tombol
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
+                        onPressed: takePicture,
                         child: Text(
-                          'Klik untuk mendapatkan titik koordinat',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
+                          "Ambil Foto",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.blue, // Warna latar belakang tombol
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                10), // Atur nilai border radius sesuai keinginan
                           ),
                         ),
                       ),
-
-                      //atur nanti output latlongnya lokasi kita
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Latitude"),
-                            Text("Longitude"),
-                          ],
+        
+                      if (imagePath != null)
+                        Text(
+                          "foto Selfie berhasil diambil",
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(_latUser.toString()),
-                            Text(_longUser.toString()),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 20.0), // Spacer antara kedua container
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              //kontainer 2
-              child: Container(
-                width: 1000,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Icon(
-                      Icons.person,
-                      color: Colors.green,
-                      size: 70,
-                    ),
-                    Text('${viewModel.namaPegawai},${viewModel.gelarblkg}'),
-                    Text("NIP: ${viewModel.nip}"),
-                    Text(
-                      "Sebelum klik tombol masuk, silahkan upload swafoto terlebih dahulu ketika sudah berada di sekitaran lokasi pengambilan absen",
-                      textAlign: TextAlign.center,
-                    ),
-                    // Ganti ElevatedButton dengan RaisedButton untuk memberikan warna yang sama seperti pada file picker
-                    ElevatedButton(
-                      onPressed: takePicture,
-                      child: Text("Ambil Foto"),
-                    ),
-                    if (imagePath != null) Icon(Icons.check)
-                  ],
+              SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  // buttonn untuk upload databasenya
+                  if (hitungJarak() <= 10) {
+                    if (imagePath != null) {
+                      await context.read<LoginViewModel>().postAbsenmasuk(_latUser, _longUser);
+                      widget.pindahHalaman(1);
+                    } else {
+                      print("foto belum diambil");
+                    }
+                  } else {
+                    print("jarak melebihi 10 meter");
+                  }
+                },
+                child: Text("submit"),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.blue, // Warna latar belakang tombol
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  minimumSize: Size(150, 40),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // buttonn untuk upload databasenya
-                if (hitungJarak() <= 10) {
-                  if (imagePath != null) {
-                    widget.pindahHalaman(1);
-                  } else {
-                    print("foto belum diambil");
-                  }
-                } else {
-                  print("jarak melebihi 10 meter");
-                }
-              },
-              child: Text("submit"),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
+  // Fungsi untuk menampilkan AlertDialog
+// void _showAlertDialog(String message) {
+//   showDialog(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return AlertDialog(
+//         title: Text("Info"),
+//         content: Text(message),
+//         actions: [
+//           ElevatedButton(
+//             onPressed: () {
+//               Navigator.of(context).pop(); // Menutup dialog
+//             },
+//             child: Text("OK"),
+//           ),
+//         ],
+// //       );
+//     },
+//   );
 }
+// }

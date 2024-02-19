@@ -20,10 +20,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
           icon: Icon(Icons.save),
           label: 'Absensi',
         ),
-        // BottomNavigationBarItem(
-        //   icon: Icon(Icons.person),
-        //   label: 'Profil',
-        // ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profil',
+        ),
       ],
     );
   }

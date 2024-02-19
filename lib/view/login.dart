@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'mainpage.dart';
 
-
 class LoginView extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -20,18 +19,27 @@ class LoginView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+              'assets/logo.png',
+              height: 200,
+            ),
+            SizedBox(height: 30,),
             TextField(
               controller: _usernameController,
               decoration: InputDecoration(
                 labelText: 'Username',
-                hintText: 'Enter your username',
+                hintText: 'Masukkan Username',
                 prefixIcon: Icon(Icons.person),
+                fillColor:
+                    Colors.white, // Atur warna latar belakang menjadi putih
+                filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.zero,
-                  borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(
+                      color: Color.fromARGB(255, 0, 10, 17), width: 2.0),
                 ),
               ),
             ),
@@ -41,30 +49,46 @@ class LoginView extends StatelessWidget {
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Password',
-                hintText: 'Enter your password',
+                hintText: 'Masukkan Password',
                 prefixIcon: Icon(Icons.key),
+                fillColor:
+                    Colors.white, // Atur warna latar belakang menjadi putih
+                filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                  borderSide: BorderSide(
+                      color: Color.fromARGB(255, 0, 10, 17), width: 2.0),
                 ),
               ),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: viewModel.loading ? null : () async {
-                await viewModel.login(_usernameController.text, _passwordController.text);
+              onPressed: viewModel.loading
+                  ? null
+                  : () async {
+                      await viewModel.login(
+                          _usernameController.text, _passwordController.text);
 
-                // Setelah login, pindah ke halaman lain jika perlu
-                if (viewModel.token != null) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => MainPage()),
-                  );
-                }
-              },
+                      // Setelah login, pindah ke halaman lain jika perlu
+                      if (viewModel.token != null) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => MainPage()),
+                        );
+                      }
+                    },
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 40), 
+                textStyle: TextStyle(fontSize: 18),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15), 
+                ),
+              ),
               child: viewModel.loading
                   ? CircularProgressIndicator()
                   : Text('Login'),
